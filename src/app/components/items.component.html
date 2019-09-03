@@ -4,6 +4,12 @@
   </ul>
 </div>
 
+<div *ngIf="repairs?.length > 0; else noItems">
+  <ul *ngFor="let repair of repairs" class="collection">
+    <li class="collection-repair"><strong>{{repair.firstname}}:</strong>{{repair.land}}:{{repair.mobile}}</li>
+  </ul>
+</div>
+
 <ng-template #noItems>
   <hr>
   <h1>There is no items</h1>
