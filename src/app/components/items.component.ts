@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/item';
-import { FirebaseModue } '@angular/firebase2';        //new import
 
 @Component({
   selector: 'app-items',
@@ -10,14 +9,33 @@ import { FirebaseModue } '@angular/firebase2';        //new import
 })
 export class ItemsComponent implements OnInit {
   items: Item[];
+  editState = false;
+  itemToEdit: Item;
 
   constructor(private itemService: ItemService) { }
 
   ngOnInit() {
     this.itemService.getItems().subscribe(items => {
-        this.items = items;
-
+      this.items = items;
     });
+  }
+  deleteItem(event, item: Item) {
+    this.clearState();
+    this.itemService.deleteItem(item);
+  }
+
+  editItem(event, item: Item) {
+    this.editState = true;
+    this.itemToEdit = item;
+  }
+  updateItem(item: Item) {
+    this.itemService.updateItem(item);
+    this.clearState();
+  }
+
+  clearState() {
+    this.editState = false;
+    this.itemToEdit = null;
   }
 
 }
