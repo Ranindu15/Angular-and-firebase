@@ -37,6 +37,4 @@ export class ItemsComponent implements OnInit {
     this.editState = false;
     this.itemToEdit = null;
   }
- 
-
 }
